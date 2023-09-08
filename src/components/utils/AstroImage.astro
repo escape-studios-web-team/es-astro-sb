@@ -1,0 +1,13 @@
+---
+import { Image } from "astro:assets";
+
+const { image, className, onClick, noCopyright } = Astro.props;
+---
+
+<Image
+  src={image.filename}
+  width={1080}
+  height={1920}
+  class={className}
+  alt={image.alt}
+/>

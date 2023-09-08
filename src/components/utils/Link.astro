@@ -1,0 +1,44 @@
+---
+const { className, to, style, target, onClick, anchor, before, type } =
+  Astro.props;
+
+const classes = `cursor-pointer transition duration-300 ${
+  className ? className : ""
+}`;
+
+const resolveLink = (path) => {
+    path = path === 'home' ? '/' : path
+    return `${path.startsWith('/') ? '' : "/"}${path.replace(/\/$|$/, `/`)}`
+}
+---
+
+{
+  !to ? ('') : to.includes("tel:") ||
+    type === 'email' ||
+    target === "_blank" ||
+    to.startsWith("www.") ||
+    to.startsWith("https://") ? (
+    <a
+      class={`${classes}`}
+      href={to.startsWith("www.") ? `https://${to}` : type === 'email' ? `mailto:${to}` : to}
+      target={target}
+      style={style}
+      role='button'
+      tabindex='0'
+      onclick={onClick ? onClick : null}
+    >
+      <slot />
+    </a>
+  ) : (
+    <a
+      class={`${classes}`}
+      href={anchor ? `${resolveLink(to)}#${anchor}` : resolveLink(to)}
+      style={style}
+      role='button'
+      tabindex='0'
+      onclick={onClick ? onClick : null}
+    >
+      <slot />
+    </a>
+  )
+}

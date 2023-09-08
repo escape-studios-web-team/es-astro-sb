@@ -1,0 +1,40 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import AstroImage from "./utils/AstroImage.astro";
+import Button from "./utils/Button.astro";
+const {blok} = Astro.props
+
+const content = renderRichText(blok.content)
+
+---
+<div class='relative bg-black' {...storyblokEditable(blok)}>   
+    <div class="block lg:flex lg:flex-row container py-24 px-6 mx-auto font-condensed">
+        {blok.image?.filename &&
+            <div class={`w-full lg:w-1/2 ${!blok.flip_columns && 'lg:order-last'}`}>
+                <AstroImage image={blok.image} />
+            </div>
+        }
+        <div class={`w-full ${blok.image?.filename ? 'lg:w-1/2 lg:px-10 flex flex-col items-center' : 'max-w-[944px] mx-auto text-center'}  mt-10 lg:mt-0`}>
+            <div class='self-center m-auto'>
+                <div class="text-white text-2xl md:text-4xl tracking-[-1px] font-[600] leading-[1.8rem] md:leading-[2.5rem] ">
+                    <Fragment set:html={content} link_classes='!text-orange' black_background={true} />
+                </div>
+                {blok.buttons && 
+                    <div class={`flex flex-row flex-wrap mt-10 gap-y-5 sm:gap-y-10 gap-10 text-white  ${blok.image?.filename ? '' : 'justify-center'} `}>
+                        {blok.buttons.map((button) => (
+                            <Button
+                                key={button._uid}
+                                to={button.target?.cached_url}
+                                anchor={button.target?.anchor}
+                                target={button.target?.target}
+                                type={button.target?.linktype}
+                            >
+                                {button?.name}
+                            </Button>
+                        ))}
+                    </div>
+                }
+            </div>
+        </div>
+    </div>    
+</div>

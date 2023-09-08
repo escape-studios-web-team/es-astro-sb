@@ -1,0 +1,23 @@
+---
+import Link from "./Link.astro";
+const {className, to, style, target, onClick, anchor, arrowBoxClasses, invert, type} = Astro.props
+const classes = `max-w-[480px] group inline-flex justify-center items-center gap-2.5 line-crop font-condensed tracking-[0.5px] ${invert === true ? 'text-black' : 'text-white'}  uppercase md:text-base text-sm font-semibold ${ className ? className : ""}`
+const html = await Astro.slots.render('default');
+---
+<Link className={`${classes}`}
+to={to}
+style={style}
+target={target}
+anchor={anchor}
+onClick={onClick}
+type={type}
+invert={invert} >
+<span>
+    <Fragment set:html={html} />
+</span>
+  <div class={`flex flex-col justify-center items-center h-[32px] w-[32px] min-h-[32px] min-w-[32px] ${invert === true ? 'bg-black' : 'bg-orange'} rounded-[3px] border-orange border ${invert === true ? 'group-hover:bg-white' : 'group-hover:bg-black'} duration-300 ${arrowBoxClasses ? arrowBoxClasses : ''}`}>
+    <div class={`h-2 w-2 ml-[3px] border-r-0 border-t-[6px] border-b-[6px] border-l-[11px] ${invert === true ? 'border-[transparent_transparent_transparent_#ffffff] group-hover:border-[transparent_transparent_transparent_#000000] ' : ' border-[transparent_transparent_transparent_#000000] group-hover:border-[transparent_transparent_transparent_#FFFFFF]'} duration-300`}></div>
+  </div>
+</Link>
+
+

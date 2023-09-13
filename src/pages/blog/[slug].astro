@@ -2,27 +2,28 @@
 import { useStoryblokApi } from '@storyblok/astro'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
+const sbApi = useStoryblokApi();
+
 export async function getStaticPaths() {
   const sbApi = useStoryblokApi();
-
   const { data } = await sbApi.get("cdn/stories", {
     content_type: "blogPost",
-    version: import.meta.env.DEV ? "draft" : "published",
+    version: 'draft',
   });
-
-  const stories = Object.values(data.stories);
-
-  return stories.map((story) => {
+  let stories = data.stories
+  
+  stories = Object.values(stories);
+  return stories.map((story) => {    
     return {
       params: { slug: story.slug },
     };
   });
 }
 
-const sbApi = useStoryblokApi();
 const { slug } = Astro.params;
+
 const { data } = await sbApi.get(`cdn/stories/blog/${slug}`, {
-  version: import.meta.env.DEV ? "draft" : "published",
+  version: 'draft',
 });
 
 const story = data.story;

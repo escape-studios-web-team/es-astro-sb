@@ -3,7 +3,6 @@ import storyblok from '@storyblok/astro';
 import { loadEnv } from 'vite';
 import react from "@astrojs/react";
 import tailwind from '@astrojs/tailwind';
-import node from "@astrojs/node";
 import netlify from "@astrojs/netlify/functions";
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
 

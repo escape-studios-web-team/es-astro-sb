@@ -6,7 +6,7 @@ import tailwind from '@astrojs/tailwind';
 import netlify from "@astrojs/netlify/functions";
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
-
+console.log(process.env.PUBLIC_ENV + ' public env');
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), tailwind(), storyblok({

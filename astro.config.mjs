@@ -21,5 +21,5 @@ export default defineConfig({
     bridge: process.env.PUBLIC_ENV !== 'production'
   })],
   output: process.env.PUBLIC_ENV === 'preview' ? 'server' : 'static',
-  adapter: process.env.PUBLIC_ENV === 'preview' ? netlify() : undefinded,
+  adapter: process.env.PUBLIC_ENV === 'preview' ? netlify() : undefined,
 });

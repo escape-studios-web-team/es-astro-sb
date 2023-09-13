@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
-import storyblok from '@storyblok/astro'
+import storyblok from '@storyblok/astro';
 import { loadEnv } from 'vite';
 import react from "@astrojs/react";
 import tailwind from '@astrojs/tailwind';
 import node from "@astrojs/node";
+import netlify from "@astrojs/netlify/functions";
 const env = loadEnv("", process.cwd(), 'STORYBLOK');
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,11 +18,9 @@ export default defineConfig({
       page: 'storyblok/Page',
       content_split_with_image: 'components/ContentSplitWithImage'
     },
-    apiOptions: {
-
-    },
-    bridge: process.env.PUBLIC_ENV !== 'production',
+    apiOptions: {},
+    bridge: process.env.PUBLIC_ENV !== 'production'
   })],
   output: process.env.PUBLIC_ENV === 'preview' ? 'server' : 'static',
-  adapter: process.env.PUBLIC_ENV === 'preview' ? node({mode:'standalone'}) : undefined,
+  adapter: process.env.PUBLIC_ENV === 'preview' ? netlify() : undefinded,
 });

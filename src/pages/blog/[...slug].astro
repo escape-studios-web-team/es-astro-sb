@@ -11,8 +11,8 @@ export async function getStaticPaths() {
     version: import.meta.env.DEV ? 'draft' : 'published',
   });
   let stories = data.stories
-  
   stories = Object.values(stories);
+
   return stories.map((story) => {    
     return {
       params: { slug: story.slug },
@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-const { data } = await sbApi.get(`cdn/stories/blog/${slug}`, {
+const { data } = await sbApi.get(`cdn/stories/blog/${slug  === undefined ? 'home' : slug}`, {
   version: import.meta.env.DEV ? 'draft' : 'published',
 });
 
